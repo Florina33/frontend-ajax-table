@@ -1,7 +1,7 @@
 import axios from 'axios';
 import $ from 'jquery';
 
-let URL = 'https://www.mocky.io/v2/55f748b33568195d044b3dc8';
+let requestUrl = 'https://www.mocky.io/v2/55f748b33568195d044b3dc8';
 
 let userListAll = $('.user-list-all');
 let userListActive = $('.user-list-active');
@@ -21,12 +21,6 @@ function compareName (first, second) {
 	return 0;
 }
 
-// есть ф-ия которая только выводит то, что осталось после сортировки,
-// она же сперва формирует таблицу из того что ост-сь после сортировки
-// воpможно создать параметры для каждого вида сортировки ageSort = true, nameSort = false ...
-// и внутри нее вызываются ф-ии сортировки
-
-// function viewUsersList (dataJson, pathTable, table = null ) {
 function viewUsersList (dataJson, pathTable, isActiveOnly = 0, ageSort = 0, nameSort = 0, surnameLimit = 0) {
 
 	tableTemplate = 0;
@@ -38,7 +32,6 @@ function viewUsersList (dataJson, pathTable, isActiveOnly = 0, ageSort = 0, name
 		dataJson.sort(compareName);
 	}
 
-	// dataJson.forEach(item => {
 	dataJson.forEach(function (item) {
 
 		if (isActiveOnly && !item.isActive) {
@@ -47,14 +40,6 @@ function viewUsersList (dataJson, pathTable, isActiveOnly = 0, ageSort = 0, name
 		if (surnameLimit && item.name.last.length < surnameLimitlength) {
 			return;
 		}
-
-
-		// if (table === 'active' && !item.isActive) {
-		// 	return true;
-		// }
-		// if (table === 'surname' && item.name.last.length < 6) {
-		// 	return;
-		// }
 
 		tableTemplate += `<tr>
 			<td class="picture"><img src="${item.picture}" alt="${item.name.first} ${item.name.last}"/></td>
@@ -72,12 +57,9 @@ function viewUsersList (dataJson, pathTable, isActiveOnly = 0, ageSort = 0, name
 	});
 
 	pathTable.append(tableTemplate);
-
-	// typeTable.innerHTML = tableTemplate;
-	// return tableTemplate;
 }
 
-// function httpGet (requestUrl, callback) {
+
 function getAjaxTable (requestUrl) {
 
 	axios.get(requestUrl)
@@ -89,24 +71,11 @@ function getAjaxTable (requestUrl) {
 		viewUsersList(response.data, userListNameSorted, 0, 0, 1);
 		viewUsersList(response.data, userListSurnameLimit, 0, 0, 0, 1);
 
-		// viewUsersList(response.data, UserListAll);
-		// viewUsersList(response.data, UserListActive, 'active');
-		// viewUsersList(response.data.sort(compareAge), UserListAgeSorted);
-		// viewUsersList(response.data.sort(compareName), UserListNameSorted);
-		// viewUsersList(response.data, UserListSurnameLimit, 'surname');
-
-		// callback(response.data)
 		return;
-
 	})
 	.catch(function (error) {
 		console.log(error);
 	});
-
 }
 
-getAjaxTable(URL);
-
-// httpGet(URL, function (data) {
-// 	console.log(data);
-// });
+getAjaxTable(requestUrl);
