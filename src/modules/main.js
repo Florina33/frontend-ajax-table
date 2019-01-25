@@ -1,7 +1,7 @@
 import axios from 'axios';
 import $ from 'jquery';
 
-let requestUrl = 'https://www.mocky.io/v2/55f748b33568195d044b3dc8';
+let UrlData = 'https://www.mocky.io/v2/55f748b33568195d044b3dc8';
 
 let userListAll = $('.user-list-all');
 let userListActive = $('.user-list-active');
@@ -78,4 +78,4 @@ function getAjaxTable (requestUrl) {
 	});
 }
 
-getAjaxTable(requestUrl);
+getAjaxTable(UrlData);
