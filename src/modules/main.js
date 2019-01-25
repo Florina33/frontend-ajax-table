@@ -1,7 +1,7 @@
 import axios from 'axios';
 import $ from 'jquery';
 
-let UrlData = 'https://www.mocky.io/v2/55f748b33568195d044b3dc8';
+let dataUtl = 'https://www.mocky.io/v2/55f748b33568195d044b3dc8';
 
 let userListAll = $('.user-list-all');
 let userListActive = $('.user-list-active');
@@ -21,7 +21,7 @@ function compareName (first, second) {
 	return 0;
 }
 
-function viewUsersList (dataJson, pathTable, isActiveOnly = 0, ageSort = 0, nameSort = 0, surnameLimit = 0) {
+function viewUsersListSorted (dataJson, pathTable, isActiveOnly = 0, ageSort = 0, nameSort = 0, surnameLimit = 0) {
 
 	tableTemplate = 0;
 
@@ -65,11 +65,11 @@ function getAjaxTable (requestUrl) {
 	axios.get(requestUrl)
 	.then(function done (response) {
 
-		viewUsersList(response.data, userListAll);
-		viewUsersList(response.data, userListActive, 1);
-		viewUsersList(response.data, userListAgeSorted, 0, 1);
-		viewUsersList(response.data, userListNameSorted, 0, 0, 1);
-		viewUsersList(response.data, userListSurnameLimit, 0, 0, 0, 1);
+		viewUsersListSorted(response.data, userListAll);
+		viewUsersListSorted(response.data, userListActive, 1);
+		viewUsersListSorted(response.data, userListAgeSorted, 0, 1);
+		viewUsersListSorted(response.data, userListNameSorted, 0, 0, 1);
+		viewUsersListSorted(response.data, userListSurnameLimit, 0, 0, 0, 1);
 
 		return;
 	})
@@ -78,4 +78,4 @@ function getAjaxTable (requestUrl) {
 	});
 }
 
-getAjaxTable(UrlData);
+getAjaxTable(dataUtl);
