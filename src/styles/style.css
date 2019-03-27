@@ -42,3 +42,7 @@ table td {
     padding: .71428571em;
     text-align: inherit;
 }
+ 
+.picture img {
+	max-width: 32px;
+}
